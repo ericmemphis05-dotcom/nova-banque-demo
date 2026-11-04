@@ -3,62 +3,225 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Banque Nova</title>
+<title>Banque Nova | Espace client</title>
 <style>
-body {
-  margin: 0;
-  font-family: Arial, sans-serif;
-  background: #f2f5fa;
-  color: #172554;
-}
-header {
-  background: #102b55;
-  color: white;
-  padding: 25px;
-  text-align: center;
-}
-main {
-  padding: 25px;
-  max-width: 600px;
-  margin: auto;
-}
-.card {
-  background: white;
-  padding: 25px;
-  border-radius: 15px;
-  margin-top: 20px;
-  box-shadow: 0 3px 12px #0001;
-}
-button {
-  background: #1675d1;
-  color: white;
-  border: 0;
-  padding: 13px 20px;
-  border-radius: 8px;
-  font-size: 16px;
-}
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,sans-serif;background:#f2f6fc;color:#183153}
+header{background:#102e59;color:white;padding:22px;text-align:center}
+header h1{margin:0;font-size:27px;letter-spacing:2px}
+header p{margin:8px 0 0;color:#d9e8ff}
+nav{display:flex;overflow-x:auto;background:white;padding:12px;gap:8px;position:sticky;top:0;z-index:2}
+nav button{border:0;background:#edf3fb;color:#183153;padding:12px;border-radius:9px;white-space:nowrap;font-weight:bold}
+nav button.active{background:#176bc1;color:white}
+main{max-width:850px;margin:auto;padding:18px}
+h2{color:#153866}
+.panel{background:white;border-radius:16px;padding:22px;margin:16px 0;box-shadow:0 4px 18px #18315310}
+.hero{background:linear-gradient(130deg,#12376c,#217bd0);color:white}
+.hero h2{color:white}
+.balance{font-size:34px;font-weight:bold;margin:15px 0}
+.small{font-size:13px;opacity:.8}
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+.stat{background:#f1f6fd;border-radius:12px;padding:15px}
+.stat strong{display:block;font-size:21px;margin-top:8px}
+input,select{width:100%;padding:14px;margin:8px 0;border:1px solid #ccd8e8;border-radius:9px;font-size:16px}
+.action{background:#176bc1;color:white;border:0;border-radius:9px;padding:13px 18px;font-weight:bold;font-size:15px;cursor:pointer}
+.secondary{background:#e9f2fc;color:#174879}
+.card{background:linear-gradient(130deg,#102e59,#287ac4);color:white;border-radius:15px;padding:22px;min-height:150px}
+.card p{margin-top:28px;letter-spacing:2px}
+.item{padding:13px 0;border-bottom:1px solid #edf0f5}
+.item:last-child{border:0}
+.hidden{display:none}
+.notice{background:#fff5d9;padding:13px;border-radius:9px;font-size:13px;color:#765316}
+footer{text-align:center;padding:25px;color:#6a7b91;font-size:13px}
 </style>
 </head>
 <body>
+
 <header>
-  <h1>BANQUE NOVA</h1>
-  <p>Votre banque, votre avenir</p>
+<h1>BANQUE NOVA</h1>
+<p>Votre banque, votre avenir</p>
 </header>
+
+<nav>
+<button class="active" onclick="show('home',this)">Accueil</button>
+<button onclick="show('accounts',this)">Comptes</button>
+<button onclick="show('cards',this)">Cartes</button>
+<button onclick="show('transfer',this)">Virements</button>
+<button onclick="show('savings',this)">Épargne</button>
+<button onclick="show('history',this)">Historique</button>
+<button onclick="show('help',this)">Assistance</button>
+</nav>
+
 <main>
-  <div class="card">
-    <h2>Bienvenue chez Nova</h2>
-    <p>Découvrez une nouvelle expérience bancaire.</p>
-    <button onclick="alert('Bienvenue chez Banque Nova !')">
-      Découvrir
-    </button>
-  </div>
-  <div class="card">
-    <h2>Nos services</h2>
-    <p>💳 Cartes bancaires</p>
-    <p>💰 Épargne</p>
-    <p>📱 Banque en ligne</p>
-    <p>🤝 Assistance client</p>
-  </div>
+
+<section id="home">
+<div class="panel hero">
+<p>ESPACE CLIENT DE DÉMONSTRATION</p>
+<h2>Bienvenue chez Nova !</h2>
+<p>Votre espace bancaire en ligne</p>
+<div class="small">Solde disponible fictif</div>
+<div class="balance" id="homeBalance">2 500,00 €</div>
+<button class="action secondary" onclick="show('accounts')">Voir mes comptes</button>
+</div>
+
+<div class="grid">
+<div class="panel stat">Compte courant<strong id="smallBalance">2 500 €</strong></div>
+<div class="panel stat">Épargne<strong>1 200 €</strong></div>
+</div>
+
+<div class="panel">
+<h2>Accès rapide</h2>
+<button class="action" onclick="show('transfer')">Effectuer un virement simulé</button>
+<button class="action secondary" onclick="show('cards')">Mes cartes</button>
+</div>
+
+<div class="panel">
+<h2>Dernières opérations</h2>
+<div id="recent"></div>
+</div>
+</section>
+
+<section id="accounts" class="hidden">
+<div class="panel">
+<h2>Mes comptes</h2>
+<div class="stat">
+Compte courant Nova
+<strong id="accountBalance">2 500,00 €</strong>
+<p>Devise : EUR</p>
+</div>
+<div class="stat" style="margin-top:12px">
+Compte épargne Nova
+<strong>1 200,00 €</strong>
+<p>Solde fictif de démonstration</p>
+</div>
+</div>
+</section>
+
+<section id="cards" class="hidden">
+<div class="panel">
+<h2>Mes cartes bancaires</h2>
+<div class="card">
+<strong>BANQUE NOVA</strong>
+<p>•••• &nbsp;•••• &nbsp;•••• &nbsp;2048</p>
+<strong>CLIENT DÉMO</strong>
+</div>
+<p>Carte virtuelle fictive, sans moyen de paiement réel.</p>
+</div>
+</section>
+
+<section id="transfer" class="hidden">
+<div class="panel">
+<h2>Virement de démonstration</h2>
+<div class="notice">Cette fonction simule uniquement un mouvement dans votre solde fictif. Aucun argent réel n'est transféré.</div>
+<label>Nom du bénéficiaire</label>
+<input id="beneficiary" placeholder="Exemple : Client Nova">
+<label>Montant en euros</label>
+<input id="amount" type="number" min="1" max="2500" placeholder="Exemple : 50">
+<button class="action" onclick="transfer()">Simuler le virement</button>
+<p id="transferMessage"></p>
+</div>
+</section>
+
+<section id="savings" class="hidden">
+<div class="panel">
+<h2>Mon épargne</h2>
+<div class="stat">
+Solde épargne fictif
+<strong>1 200,00 €</strong>
+</div>
+<p>Préparez vos projets avec Nova.</p>
+<p>Objectif de démonstration : 2 000 €</p>
+<div style="background:#e8eff8;border-radius:10px;height:13px">
+<div style="background:#1976cf;width:60%;height:13px;border-radius:10px"></div>
+</div>
+<p>Progression : 60 %</p>
+</div>
+</section>
+
+<section id="history" class="hidden">
+<div class="panel">
+<h2>Historique des opérations</h2>
+<div id="transactions"></div>
+</div>
+</section>
+
+<section id="help" class="hidden">
+<div class="panel">
+<h2>Assistance Nova</h2>
+<p>Bienvenue dans notre centre d'aide.</p>
+<div class="item"><strong>Comment consulter mon solde ?</strong><p>Ouvrez la rubrique Comptes.</p></div>
+<div class="item"><strong>Comment effectuer un virement ?</strong><p>Utilisez la rubrique Virements pour une simulation.</p></div>
+<div class="item"><strong>Comment contacter Nova ?</strong><p>Écrivez-nous à contact@example.com (adresse fictive).</p></div>
+</div>
+</section>
+
 </main>
+
+<footer>
+<strong>BANQUE NOVA</strong>
+<p>Prototype bancaire fictif – Démonstration uniquement.</p>
+<p>Aucune opération financière réelle n'est possible.</p>
+</footer>
+
+<script>
+let balance = 2500;
+let transactions = [
+{label:"Solde initial de démonstration",amount:2500}
+];
+
+function show(id,btn){
+document.querySelectorAll("main section").forEach(s=>s.classList.add("hidden"));
+document.getElementById(id).classList.remove("hidden");
+document.querySelectorAll("nav button").forEach(b=>b.classList.remove("active"));
+if(btn) btn.classList.add("active");
+if(id==="history") renderHistory();
+}
+
+function formatMoney(n){
+return n.toLocaleString("fr-FR",{minimumFractionDigits:2,maximumFractionDigits:2})+" €";
+}
+
+function update(){
+document.getElementById("homeBalance").textContent=formatMoney(balance);
+document.getElementById("smallBalance").textContent=formatMoney(balance);
+document.getElementById("accountBalance").textContent=formatMoney(balance);
+renderRecent();
+}
+
+function renderRecent(){
+document.getElementById("recent").innerHTML=transactions.slice(-3).reverse().map(t=>
+'<div class="item">'+t.label+'<strong style="float:right">'+formatMoney(t.amount)+'</strong></div>'
+).join("");
+}
+
+function renderHistory(){
+document.getElementById("transactions").innerHTML=transactions.slice().reverse().map(t=>
+'<div class="item">'+t.label+'<strong style="float:right">'+formatMoney(t.amount)+'</strong></div>'
+).join("");
+}
+
+function transfer(){
+let name=document.getElementById("beneficiary").value.trim();
+let amount=Number(document.getElementById("amount").value);
+let message=document.getElementById("transferMessage");
+
+if(!name || !Number.isFinite(amount) || amount<=0){
+message.textContent="Veuillez saisir un bénéficiaire et un montant valide.";
+return;
+}
+if(amount>balance){
+message.textContent="Solde fictif insuffisant.";
+return;
+}
+
+balance-=amount;
+transactions.push({label:"Virement simulé vers "+name,amount:-amount});
+update();
+message.textContent="Simulation réussie ! Nouveau solde : "+formatMoney(balance);
+document.getElementById("amount").value="";
+document.getElementById("beneficiary").value="";
+}
+update();
+</script>
 </body>
-</html>
+  </html>

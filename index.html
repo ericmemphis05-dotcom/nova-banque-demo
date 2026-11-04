@@ -1,494 +1,93 @@
-HTML
 
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#102b55">
-<title>Banque Nova | Votre banque, votre avenir</title>
-<style>
-:root{--navy:#102b55;--blue:#1769c2;--ink:#172b4d;--muted:#68778d;--line:#e3eaf3;--green:#168653;--red:#c33d4b}
-*{box-sizing:border-box}
-body{margin:0;background:#f4f7fb;color:var(--ink);font-family:Inter,system-ui,Arial,sans-serif}
-button,input,select,textarea{font:inherit}
-button{cursor:pointer}
-.hidden{display:none!important}
-.topbar{background:var(--navy);color:white;padding:17px 5%;display:flex;align-items:center;justify-content:space-between;gap:15px}
-.brand{font-size:23px;font-weight:850;letter-spacing:.5px}
-.brand span{color:#76b9ff}
-.topbar small{color:#d5e4f7}
-.wrap{max-width:1180px;margin:auto;padding:28px 20px}
-.auth{max-width:480px;margin:35px auto;background:white;padding:32px;border-radius:22px;box-shadow:0 12px 35px #102b5512}
-h1,h2,h3{margin-top:0}
-h1{font-size:30px}h2{font-size:22px}
-.muted{color:var(--muted)}
-.field{margin:14px 0}
-.field label{display:block;font-size:13px;font-weight:700;margin-bottom:7px}
-.field input,.field select,.field textarea{width:100%;padding:13px 14px;border:1px solid #d8e1ed;border-radius:11px;background:white;color:var(--ink)}
-.btn{border:0;border-radius:11px;padding:12px 17px;font-weight:750;background:var(--blue);color:white}
-.btn.light{background:white;color:var(--navy);border:1px solid var(--line)}
-.btn.full{width:100%}
-.link{border:0;background:none;color:var(--blue);font-weight:700;padding:5px}
-.authnote{font-size:12px;line-height:1.5;background:#fff8e8;color:#75520b;padding:12px;border-radius:10px;margin-top:18px}
-.layout{display:grid;grid-template-columns:235px 1fr;gap:22px}
-.sidebar,.panel,.stat{background:white;border:1px solid var(--line);border-radius:17px;box-shadow:0 12px 35px #102b5512}
-.sidebar{padding:15px;height:max-content;position:sticky;top:15px}
-.navbtn{display:flex;width:100%;border:0;background:transparent;color:#52637b;text-align:left;padding:12px;border-radius:10px;margin:3px 0;font-weight:650}
-.navbtn.active,.navbtn:hover{background:#eaf3ff;color:var(--blue)}
-.content{min-width:0}
-.welcome{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:20px}
-.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:15px;margin-bottom:18px}
-.stat{padding:19px}
-.stat small{color:var(--muted);font-weight:650}
-.stat strong{display:block;font-size:26px;margin-top:8px}
-.balance{background:linear-gradient(120deg,#102b55,#1769c2);color:white;border-radius:18px;padding:25px}
-.balance small{color:#d7e8ff}
-.balance strong{display:block;font-size:34px;margin:9px 0 18px}
-.balance .btn{background:white;color:var(--navy)}
-.panel{padding:21px;margin-bottom:18px}
-.panelhead{display:flex;justify-content:space-between;align-items:center;gap:12px}
-.tablewrap{overflow:auto}
-table{width:100%;border-collapse:collapse;min-width:520px}
-th,td{text-align:left;padding:13px 10px;border-bottom:1px solid var(--line);font-size:14px}
-th{color:var(--muted);font-size:12px;text-transform:uppercase}
-.positive{color:var(--green);font-weight:750}
-.negative{color:var(--red);font-weight:750}
-.tag{display:inline-block;padding:5px 9px;border-radius:30px;background:#eaf3ff;color:var(--blue);font-size:11px;font-weight:750}
-.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:15px}
-.bankcard{background:linear-gradient(130deg,#102b55,#2478c9);color:white;border-radius:17px;padding:20px;min-height:145px}
-.bankcard .num{letter-spacing:2px;margin:24px 0 10px}
-.bankcard small{color:#d5e7ff}
-.notice{padding:13px;border-radius:11px;background:#edf6ff;color:#164b85;font-size:13px;line-height:1.5}
-.empty{padding:22px;text-align:center;color:var(--muted)}
-.actions{display:flex;gap:9px;flex-wrap:wrap}
-.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:#102b55;color:white;padding:13px 18px;border-radius:12px;z-index:20;max-width:90%;text-align:center}
-.emailbox{border:1px solid var(--line);padding:14px;border-radius:12px;margin:10px 0}
-footer{text-align:center;color:var(--muted);font-size:12px;padding:25px}
-@media(max-width:800px){
-.layout{grid-template-columns:1fr}
-.sidebar{position:static;display:grid;grid-template-columns:repeat(2,1fr)}
-.grid{grid-template-columns:1fr 1fr}
-.welcome{align-items:flex-start;flex-direction:column}
-}
-@media(max-width:480px){
-.wrap{padding:18px 12px}
-.auth{margin:18px 12px;padding:23px}
-.grid{grid-template-columns:1fr}
-.sidebar{grid-template-columns:1fr 1fr}
-.topbar{padding:14px}
-.brand{font-size:19px}
-}
-</style>
-</head>
-<body>
+document.getElementById('transferForm').onsubmit = e => {
+  e.preventDefault();
+  db = load();
 
-<header class="topbar">
-<div class="brand">NOVA<span>.</span></div>
-<small>Votre banque, votre avenir</small>
-<button id="headerLogout" class="btn light hidden" onclick="logout()">Déconnexion</button>
-</header>
+  const user = db.users.find(u => u.id === current?.id);
+  if (!user) {
+    toast('Session introuvable. Reconnectez-vous.');
+    logout();
+    return;
+  }
 
-<main id="authView" class="wrap">
-<section class="auth">
-<div class="brand" style="color:#102b55">BANQUE <span>NOVA</span></div>
-<h1 id="authTitle" style="margin-top:25px">Bienvenue chez Nova</h1>
-<p class="muted" id="authSubtitle">Connectez-vous à votre espace de démonstration.</p>
+  const email = document.getElementById('beneficiaryEmail').value.trim().toLowerCase();
+  const name = document.getElementById('beneficiaryName').value.trim();
+  const amount = Math.round(Number(document.getElementById('transferAmount').value) * 100) / 100;
+  const reason = document.getElementById('transferReason').value.trim() || 'Virement';
 
-<form id="loginForm">
-<div class="field"><label>Adresse e-mail</label><input id="loginEmail" type="email" required placeholder="vous@exemple.com"></div>
-<div class="field"><label>Mot de passe</label><input id="loginPassword" type="password" required placeholder="Votre mot de passe"></div>
-<button class="btn full" type="submit">Se connecter</button>
-</form>
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) || !name) {
+    toast('Vérifiez le nom et l’adresse e-mail du bénéficiaire.');
+    return;
+  }
 
-<form id="registerForm" class="hidden">
-<div class="field"><label>Nom complet</label><input id="regName" required autocomplete="name"></div>
-<div class="field"><label>Adresse e-mail</label><input id="regEmail" type="email" required autocomplete="email"></div>
-<div class="field"><label>Mot de passe (8 caractères minimum)</label><input id="regPassword" type="password" minlength="8" required autocomplete="new-password"></div>
-<button class="btn full" type="submit">Créer mon compte démo</button>
-</form>
+  if (!Number.isFinite(amount) || amount <= 0 || amount > 100000) {
+    toast('Veuillez saisir un montant valide.');
+    return;
+  }
 
-<p id="authSwitch" style="text-align:center;margin-top:18px">Nouveau client ? <button class="link" onclick="showRegister()">Créer un compte</button></p>
+  if (amount > Number(user.balance)) {
+    toast('Solde démo insuffisant.');
+    return;
+  }
 
-<div class="authnote"><b>Version de démonstration uniquement.</b> Les comptes, soldes et virements sont fictifs et stockés dans ce navigateur. N'utilisez aucun vrai mot de passe ni aucune donnée bancaire réelle.</div>
-<p class="muted" style="font-size:12px;margin-top:14px">Accès administrateur de démonstration : admin@banquenova.demo / NovaDemo2026!</p>
-</section>
-</main>
+  if (email === user.email) {
+    toast('Vous ne pouvez pas vous désigner comme bénéficiaire.');
+    return;
+  }
 
-<main id="appView" class="wrap hidden">
-<div class="layout">
-<aside class="sidebar">
-<button class="navbtn active" data-page="home">▦ &nbsp; Tableau de bord</button>
-<button class="navbtn" data-page="transfer">⇄ &nbsp; Virements</button>
-<button class="navbtn" data-page="cards">▣ &nbsp; Mes cartes</button>
-<button class="navbtn" data-page="savings">◈ &nbsp; Épargne</button>
-<button class="navbtn" data-page="loans">⌂ &nbsp; Crédits</button>
-<button class="navbtn" data-page="history">↻ &nbsp; Historique</button>
-<button class="navbtn" data-page="profile">♙ &nbsp; Mon profil</button>
-<button class="navbtn" data-page="support">✉ &nbsp; Assistance</button>
-<button class="navbtn hidden" id="adminNav" data-page="admin">⚙ &nbsp; Administration</button>
-<button class="navbtn" onclick="logout()">⇥ &nbsp; Déconnexion</button>
-</aside>
+  const ref = 'NOVA-' + id();
+  const date = new Date().toISOString();
 
-<section class="content">
-<div class="welcome">
-<div><h1 id="welcomeName">Bonjour</h1><p class="muted">Bienvenue dans votre espace Banque Nova.</p></div>
-<span class="tag">COMPTE DÉMO</span>
-</div>
+  // Débit fictif de l'expéditeur
+  user.balance = Math.round((Number(user.balance) - amount) * 100) / 100;
 
-<div id="page-home">
-<div class="balance">
-<small>Solde disponible – simulation</small>
-<strong id="balanceValue">90 000,00 €</strong>
-<small id="accountNumber">Compte fictif</small>
-<div class="actions" style="margin-top:17px">
-<button class="btn" onclick="go('transfer')">Effectuer un virement</button>
-<button class="btn" onclick="go('history')">Voir les opérations</button>
-</div>
-</div>
+  db.transactions.push({
+    id: id(),
+    userId: user.id,
+    type: 'Virement fictif envoyé',
+    detail: name + ' (' + email + ') – ' + reason,
+    amount: -amount,
+    date,
+    reference: ref
+  });
 
-<div class="grid" style="margin-top:17px">
-<div class="stat"><small>Opérations</small><strong id="txCount">0</strong></div>
-<div class="stat"><small>Épargne simulée</small><strong id="savingValue">0 €</strong></div>
-<div class="stat"><small>Statut du compte</small><strong style="font-size:19px;color:var(--green)">Actif (démo)</strong></div>
-</div>
+  // Crédit du bénéficiaire uniquement s'il possède un compte local Nova
+  const recipient = db.users.find(u => u.email === email);
 
-<section class="panel">
-<div class="panelhead"><h2>Dernières opérations</h2><button class="link" onclick="go('history')">Tout voir</button></div>
-<div id="recentTx"></div>
-</section>
-<div class="notice">Les montants affichés sont fictifs. Cette application ne détient pas de fonds et ne communique pas avec une banque réelle.</div>
-</div>
+  if (recipient) {
+    recipient.balance = Math.round((Number(recipient.balance) + amount) * 100) / 100;
 
-<div id="page-transfer" class="hidden">
-<section class="panel">
-<h2>Nouveau virement</h2>
-<p class="muted">Envoyez des fonds fictifs à un autre compte de démonstration Banque Nova.</p>
-<form id="transferForm">
-<div class="field"><label>E-mail du bénéficiaire</label><input id="beneficiaryEmail" type="email" required placeholder="beneficiaire@exemple.com"></div>
-<div class="field"><label>Nom du bénéficiaire</label><input id="beneficiaryName" required placeholder="Nom complet"></div>
-<div class="field"><label>Montant (€)</label><input id="transferAmount" type="number" min="0.01" max="100000" step="0.01" required placeholder="100.00"></div>
-<div class="field"><label>Motif du virement</label><input id="transferReason" maxlength="100" placeholder="Ex. Participation"></div>
-<button class="btn" type="submit">Confirmer le virement fictif</button>
-</form>
-</section>
-<div class="notice">Le transfert est enregistré uniquement dans les données locales de démonstration. Aucun véritable e-mail n'est envoyé.</div>
-</div>
+    db.transactions.push({
+      id: id(),
+      userId: recipient.id,
+      type: 'Virement fictif reçu',
+      detail: 'De ' + user.name + ' – ' + reason,
+      amount,
+      date,
+      reference: ref
+    });
+  }
 
-<div id="page-cards" class="hidden">
-<section class="panel">
-<h2>Mes cartes bancaires</h2>
-<div class="cards">
-<div class="bankcard"><b>BANQUE NOVA</b><div class="num">•••• &nbsp; •••• &nbsp; •••• &nbsp; 2048</div><div style="display:flex;justify-content:space-between"><span>CLIENT DÉMO</span><small>VIRTUELLE</small></div></div>
-</div>
-<p class="muted">Carte fictive : aucun numéro de carte réel, aucun paiement possible.</p>
-</section>
-</div>
+  // Journal de notification, même sans compte Nova
+  db.emails.push({
+    id: id(),
+    to: email,
+    name,
+    from: user.name,
+    amount,
+    reason,
+    ref,
+    date,
+    delivered: false,
+    status: 'notification non envoyée',
+    recipientHasNovaAccount: Boolean(recipient)
+  });
 
-<div id="page-savings" class="hidden">
-<section class="panel">
-<h2>Mon épargne</h2>
-<p>Épargne simulée : <b id="savingPageValue">0 €</b></p>
-<form id="savingForm">
-<div class="field"><label>Ajouter à l'épargne (€)</label><input id="savingAmount" type="number" min="0.01" step="0.01" required></div>
-<button class="btn">Ajouter (simulation)</button>
-</form>
-</section>
-</div>
+  save();
+  current = user;
+  e.target.reset();
+  render();
+  go('transfer');
 
-<div id="page-loans" class="hidden">
-<section class="panel">
-<h2>Simuler une demande de crédit</h2>
-<form id="loanForm">
-<div class="field"><label>Type de crédit</label><select id="loanType"><option>Crédit personnel</option><option>Crédit auto</option><option>Crédit immobilier</option></select></div>
-<div class="field"><label>Montant souhaité (€)</label><input id="loanAmount" type="number" min="100" max="500000" required></div>
-<div class="field"><label>Durée souhaitée (mois)</label><input id="loanDuration" type="number" min="1" max="360" required></div>
-<button class="btn">Envoyer la demande fictive</button>
-</form>
-<div id="loanResult"></div>
-</section>
-</div>
-
-<div id="page-history" class="hidden">
-<section class="panel"><h2>Historique des transactions</h2><div id="allTx"></div></section>
-</div>
-
-<div id="page-profile" class="hidden">
-<section class="panel">
-<h2>Mon profil</h2>
-<form id="profileForm">
-<div class="field"><label>Nom complet</label><input id="profileName" required></div>
-<div class="field"><label>E-mail</label><input id="profileEmail" type="email" disabled></div>
-<button class="btn">Enregistrer</button>
-</form>
-<p class="muted">Les informations restent sur cet appareil dans cette démo.</p>
-</section>
-</div>
-
-<div id="page-support" class="hidden">
-<section class="panel">
-<h2>Assistance client</h2>
-<form id="supportForm">
-<div class="field"><label>Objet</label><input id="supportSubject" required></div>
-<div class="field"><label>Votre message</label><textarea id="supportMessage" rows="4" required></textarea></div>
-<button class="btn">Envoyer le message (démo)</button>
-</form>
-</section>
-</div>
-
-<div id="page-admin" class="hidden">
-<section class="panel">
-<h2>Administration – démonstration</h2>
-<div class="notice">Espace de test local. Il ne constitue pas un véritable système d'administration sécurisé.</div>
-<div class="grid">
-<div class="stat"><small>Comptes locaux</small><strong id="adminUsers">0</strong></div>
-<div class="stat"><small>Transactions locales</small><strong id="adminTx">0</strong></div>
-<div class="stat"><small>Notifications modèle</small><strong id="adminEmails">0</strong></div>
-</div>
-<h3>Journal des notifications e-mail (aperçu)</h3>
-<div id="emailLog"></div>
-</section>
-</div>
-</section>
-</div>
-</main>
-
-<footer>© Banque Nova – Prototype pédagogique. Aucun service bancaire réel n'est fourni.</footer>
-<div id="toast" class="toast hidden" role="status"></div>
-
-<script>
-const DBKEY='nova_demo_db_v1';
-const money=n=>new Intl.NumberFormat('fr-FR',{style:'currency',currency:'EUR'}).format(Number(n)||0);
-const id=()=>Math.random().toString(36).slice(2,10).toUpperCase();
-
-function load(){
-try{return JSON.parse(localStorage.getItem(DBKEY))||{users:[],transactions:[],emails:[],loans:[]}}
-catch(e){return {users:[],transactions:[],emails:[],loans:[]}}
-}
-let db=load(),current=null;
-function save(){localStorage.setItem(DBKEY,JSON.stringify(db))}
-
-if(!db.users.some(u=>u.email==='admin@banquenova.demo')){
-db.users.push({
-id:'ADMIN',
-name:'Administrateur Nova',
-email:'admin@banquenova.demo',
-password:'NovaDemo2026!',
-balance:90000,
-savings:0,
-role:'admin',
-account:'NOVA-ADMIN-0001'
-});
-save();
-}
-
-function toast(msg){
-let t=document.getElementById('toast');
-t.textContent=msg;
-t.classList.remove('hidden');
-setTimeout(()=>t.classList.add('hidden'),3200);
-}
-
-function showRegister(){
-document.getElementById('loginForm').classList.add('hidden');
-document.getElementById('registerForm').classList.remove('hidden');
-document.getElementById('authTitle').textContent='Créer votre espace';
-document.getElementById('authSubtitle').textContent='Ouvrez un compte de démonstration Banque Nova.';
-document.getElementById('authSwitch').innerHTML='Déjà client ? <button class="link" onclick="showLogin()">Se connecter</button>';
-}
-
-function showLogin(){
-document.getElementById('loginForm').classList.remove('hidden');
-document.getElementById('registerForm').classList.add('hidden');
-document.getElementById('authTitle').textContent='Bienvenue chez Nova';
-document.getElementById('authSubtitle').textContent='Connectez-vous à votre espace de démonstration.';
-document.getElementById('authSwitch').innerHTML='Nouveau client ? <button class="link" onclick="showRegister()">Créer un compte</button>';
-}
-
-document.getElementById('registerForm').onsubmit=e=>{
-e.preventDefault();
-let name=document.getElementById('regName').value.trim();
-let email=document.getElementById('regEmail').value.trim().toLowerCase();
-let password=document.getElementById('regPassword').value;
-if(db.users.some(u=>u.email===email)){toast('Cette adresse e-mail possède déjà un compte.');return}
-let u={
-id:id(),name,email,password,
-balance:90000,
-savings:0,
-role:'client',
-account:'NOVA-'+id()
+  toast('Simulation enregistrée. Réf. ' + ref + '. Aucun e-mail ni argent réel envoyé.');
 };
-db.users.push(u);
-save();
-toast('Compte démo créé. Vous pouvez vous connecter.');
-showLogin();
-document.getElementById('loginEmail').value=email;
-};
-
-document.getElementById('loginForm').onsubmit=e=>{
-e.preventDefault();
-let email=document.getElementById('loginEmail').value.trim().toLowerCase();
-let password=document.getElementById('loginPassword').value;
-let u=db.users.find(x=>x.email===email&&x.password===password);
-if(!u){toast('Identifiants incorrects.');return}
-current=u;
-render();
-};
-
-function logout(){
-current=null;
-document.getElementById('appView').classList.add('hidden');
-document.getElementById('authView').classList.remove('hidden');
-document.getElementById('headerLogout').classList.add('hidden');
-showLogin();
-}
-
-function go(page){
-document.querySelectorAll('[id^="page-"]').forEach(x=>x.classList.add('hidden'));
-let p=document.getElementById('page-'+page);
-if(p)p.classList.remove('hidden');
-document.querySelectorAll('.navbtn[data-page]').forEach(b=>b.classList.toggle('active',b.dataset.page===page));
-if(page==='admin')renderAdmin();
-}
-document.querySelectorAll('.navbtn[data-page]').forEach(b=>b.onclick=()=>go(b.dataset.page));
-
-function escapeHTML(s){
-return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-}
-
-function txHTML(items){
-if(!items.length)return '<div class="empty">Aucune opération pour le moment.</div>';
-return '<div class="tablewrap"><table><thead><tr><th>Date</th><th>Opération</th><th>Détail</th><th>Montant</th></tr></thead><tbody>'+
-items.slice().reverse().map(t=>`<tr><td>${new Date(t.date).toLocaleString('fr-FR')}</td><td>${escapeHTML(t.type)}</td><td>${escapeHTML(t.detail)}</td><td class="${t.amount>=0?'positive':'negative'}">${t.amount>=0?'+':''}${money(t.amount)}</td></tr>`).join('')+
-'</tbody></table></div>';
-}
-
-function myTx(){return db.transactions.filter(t=>t.userId===current.id)}
-
-function render(){
-db=load();
-current=db.users.find(u=>u.id===current.id)||current;
-document.getElementById('authView').classList.add('hidden');
-document.getElementById('appView').classList.remove('hidden');
-document.getElementById('headerLogout').classList.remove('hidden');
-document.getElementById('welcomeName').textContent='Bonjour, '+current.name.split(' ')[0];
-document.getElementById('balanceValue').textContent=money(current.balance);
-document.getElementById('accountNumber').textContent='Compte : '+current.account;
-document.getElementById('txCount').textContent=myTx().length;
-document.getElementById('savingValue').textContent=money(current.savings);
-document.getElementById('savingPageValue').textContent=money(current.savings);
-document.getElementById('recentTx').innerHTML=txHTML(myTx().slice(-5));
-document.getElementById('allTx').innerHTML=txHTML(myTx());
-document.getElementById('profileName').value=current.name;
-document.getElementById('profileEmail').value=current.email;
-document.getElementById('adminNav').classList.toggle('hidden',current.role!=='admin');
-go('home');
-}
-
-document.getElementById('transferForm').onsubmit=e=>{
-e.preventDefault();
-db=load();
-current=db.users.find(u=>u.id===current.id);
-let email=document.getElementById('beneficiaryEmail').value.trim().toLowerCase();
-let name=document.getElementById('beneficiaryName').value.trim();
-let amount=Number(document.getElementById('transferAmount').value);
-let reason=document.getElementById('transferReason').value.trim()||'Virement';
-
-if(!Number.isFinite(amount)||amount<=0||amount>current.balance){
-toast('Montant invalide ou solde démo insuffisant.');
-return;
-}
-let recipient=db.users.find(u=>u.email===email);
-if(!recipient){
-toast('Bénéficiaire introuvable dans les comptes de démonstration.');
-return;
-}
-if(recipient.id===current.id){
-toast('Choisissez un autre bénéficiaire.');
-return;
-}
-
-current.balance-=amount;
-db.transactions.push({
-id:id(),userId:current.id,type:'Virement envoyé',
-detail:name+' – '+reason,amount:-amount,date:new Date().toISOString()
-});
-recipient.balance+=amount;
-db.transactions.push({
-id:id(),userId:recipient.id,type:'Virement reçu',
-detail:'De '+current.name+' – '+reason,amount,date:new Date().toISOString()
-});
-
-let ref='NOVA-'+id();
-db.emails.push({
-id:id(),to:email,name,from:current.name,amount,reason,ref,
-date:new Date().toISOString(),delivered:false
-});
-save();
-e.target.reset();
-render();
-go('transfer');
-toast('Virement fictif enregistré pour les deux comptes.');
-};
-
-document.getElementById('savingForm').onsubmit=e=>{
-e.preventDefault();
-let amount=Number(document.getElementById('savingAmount').value);
-if(amount<=0||amount>current.balance){toast('Montant invalide.');return}
-current.balance-=amount;
-current.savings+=amount;
-db.transactions.push({
-id:id(),userId:current.id,type:'Versement épargne',
-detail:'Transfert vers épargne démo',amount:-amount,date:new Date().toISOString()
-});
-save();render();toast('Versement d’épargne simulé.');
-};
-
-document.getElementById('loanForm').onsubmit=e=>{
-e.preventDefault();
-db.loans.push({
-id:id(),userId:current.id,
-type:document.getElementById('loanType').value,
-amount:Number(document.getElementById('loanAmount').value),
-duration:Number(document.getElementById('loanDuration').value),
-date:new Date().toISOString(),status:'À étudier (démo)'
-});
-save();
-document.getElementById('loanResult').innerHTML='<p class="notice">Votre demande fictive a été enregistrée. Aucune décision de crédit réelle.</p>';
-toast('Demande de crédit démo enregistrée.');
-};
-
-document.getElementById('profileForm').onsubmit=e=>{
-e.preventDefault();
-current.name=document.getElementById('profileName').value.trim();
-save();render();toast('Profil démo mis à jour.');
-};
-
-document.getElementById('supportForm').onsubmit=e=>{
-e.preventDefault();
-db.emails.push({
-id:id(),to:current.email,name:current.name,
-from:'Assistance Banque Nova',amount:null,
-reason:document.getElementById('supportSubject').value+' – '+document.getElementById('supportMessage').value,
-ref:'SUP-'+id(),date:new Date().toISOString(),delivered:false
-});
-save();e.target.reset();
-toast('Message enregistré dans le journal local de démonstration.');
-};
-
-function renderAdmin(){
-db=load();
-document.getElementById('adminUsers').textContent=db.users.length;
-document.getElementById('adminTx').textContent=db.transactions.length;
-document.getElementById('adminEmails').textContent=db.emails.length;
-document.getElementById('emailLog').innerHTML=db.emails.slice().reverse().map(m=>
-`<div class="emailbox"><strong>À : ${escapeHTML(m.to)}</strong>
-<p>Objet : ${m.amount===null?'Message assistance':'Confirmation de virement – Banque Nova'}</p>
-<p>${escapeHTML(m.name)} ${m.amount===null?'':'– '+money(m.amount)} · Réf. ${escapeHTML(m.ref)}</p>
-<p>${new Date(m.date).toLocaleString('fr-FR')} · <span class="tag">Modèle non envoyé</span></p>
-<p>${escapeHTML(m.reason)}</p></div>`
-).join('')||'<div class="empty">Aucune notification.</div>';
-}
-</script>
-</body>
-</html>

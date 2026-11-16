@@ -134,25 +134,25 @@ footer{text-align:center;color:var(--muted);font-size:12px;padding:25px}
 <div class="welcome">
 <div>
 <h1 id="welcomeName">Bonjour Mr Éric Memphis</h1>
-<p class="muted">Bienvenue dans votre espace Crédit Agricole.</p>
+<p class="muted">Bienvenue dans votre espace de démonstration.</p>
 </div>
 <span class="tag">DÉMO NON OFFICIELLE</span>
 </div>
 
 <div id="page-home">
 <div class="balance">
-<small>Solde disponible</small>
+<small>Solde fictif disponible</small>
 <strong id="balanceValue">90 000,00 €</strong>
-<small id="accountNumber">Compte Crédit Agricole</small>
+<small id="accountNumber">Compte de démonstration</small>
 <div class="actions" style="margin-top:17px">
-<button class="btn" onclick="go('transfer')">Effectuer un virement</button>
+<button class="btn" onclick="go('transfer')">Effectuer un virement simulé</button>
 <button class="btn" onclick="go('history')">Voir les opérations</button>
 </div>
 </div>
 <div class="grid" style="margin-top:17px">
 <div class="stat"><small>Opérations</small><strong id="txCount">0</strong></div>
-<div class="stat"><small>Épargne</small><strong id="savingValue">0 €</strong></div>
-<div class="stat"><small>Statut du compte</small><strong style="font-size:19px;color:var(--green)">Actif</strong></div>
+<div class="stat"><small>Épargne fictive</small><strong id="savingValue">0 €</strong></div>
+<div class="stat"><small>Statut de la démo</small><strong style="font-size:19px;color:var(--green)">Active</strong></div>
 </div>
 <section class="panel">
 <div class="panelhead"><h2>Dernières opérations</h2><button class="link" onclick="go('history')">Tout voir</button></div>
@@ -163,21 +163,21 @@ footer{text-align:center;color:var(--muted);font-size:12px;padding:25px}
 
 <div id="page-transfer" class="hidden">
 <section class="panel">
-<h2>Nouveau virement</h2>
-<p class="muted">Vous pouvez saisir le bénéficiaire même s'il ne possède pas de compte Crédit Agricole.</p>
+<h2>Nouveau virement simulé</h2>
+<p class="muted">Cette fonction permet de tester l'enregistrement local d'une opération fictive.</p>
 <form id="transferForm">
-<div class="field"><label>IBAN du bénéficiaire</label><input id="beneficiaryIban" type="text" required minlength="15" maxlength="34" placeholder="Ex. FR7612345678901234567890123" autocomplete="off"></div>
-<div class="field"><label>BIC / SWIFT de la banque</label><input id="beneficiaryBic" type="text" required minlength="8" maxlength="11" placeholder="Ex. ABCDFRPPXXX" autocomplete="off"></div>
+<div class="field"><label>IBAN de démonstration du bénéficiaire</label><input id="beneficiaryIban" type="text" required minlength="15" maxlength="34" placeholder="Ex. FR7612345678901234567890123" autocomplete="off"></div>
+<div class="field"><label>BIC / SWIFT de démonstration</label><input id="beneficiaryBic" type="text" required minlength="8" maxlength="11" placeholder="Ex. ABCDFRPPXXX" autocomplete="off"></div>
 <div class="field"><label>Nom du bénéficiaire</label><input id="beneficiaryName" required maxlength="100" placeholder="Nom complet"></div>
-<div class="field"><label>Montant (€)</label><input id="transferAmount" type="number" min="0.01" max="100000" step="0.01" required placeholder="100.00"></div>
+<div class="field"><label>Montant fictif (€)</label><input id="transferAmount" type="number" min="0.01" max="100000" step="0.01" required placeholder="100.00"></div>
 <div class="field"><label>Motif du virement</label><input id="transferReason" maxlength="100" placeholder="Ex. Participation"></div>
-<button class="btn">Enregistrer le virement</button>
+<button class="btn">Enregistrer la simulation sortante</button>
 </form>
 </section>
 
 <section class="panel">
-<h2>Virement entrant</h2>
-<p class="muted">Ajoutez une opération fictive pour tester l'affichage de l'historique.</p>
+<h2>Virement entrant simulé</h2>
+<p class="muted">Ajoutez une opération fictive pour tester l'évolution du solde et l'affichage de l'historique.</p>
 <div class="notice">Cette opération est une simulation locale. Aucune somme réelle n'est reçue et aucune confirmation bancaire n'est générée.</div>
 <form id="incomingTransferForm">
 <div class="field">
@@ -185,14 +185,14 @@ footer{text-align:center;color:var(--muted);font-size:12px;padding:25px}
 <input id="incomingSender" type="text" maxlength="100" required placeholder="Nom de l'expéditeur">
 </div>
 <div class="field">
-<label>Montant (€)</label>
+<label>Montant fictif (€)</label>
 <input id="incomingAmount" type="number" min="0.01" max="100000" step="0.01" required placeholder="Ex. 100.00">
 </div>
 <div class="field">
 <label>Motif du virement</label>
 <input id="incomingReason" type="text" maxlength="100" required placeholder="Ex. Remboursement">
 </div>
-<button class="btn" type="submit">Ajouter l'opération</button>
+<button class="btn" type="submit">Ajouter l'opération simulée</button>
 </form>
 </section>
 
@@ -201,10 +201,10 @@ footer{text-align:center;color:var(--muted);font-size:12px;padding:25px}
 
 <div id="page-cards" class="hidden">
 <section class="panel">
-<h2>Mes cartes bancaires</h2>
+<h2>Mes cartes de démonstration</h2>
 <div class="cards">
 <div class="bankcard">
-<b>CRÉDIT AGRICOLE</b>
+<b>CRÉDIT AGRICOLE – DÉMO</b>
 <div class="num">•••• &nbsp; •••• &nbsp; •••• &nbsp; 2048</div>
 <div style="display:flex;justify-content:space-between"><span>CLIENT DÉMO</span><small>VIRTUELLE</small></div>
 </div>
@@ -215,10 +215,10 @@ footer{text-align:center;color:var(--muted);font-size:12px;padding:25px}
 
 <div id="page-savings" class="hidden">
 <section class="panel">
-<h2>Mon épargne</h2>
+<h2>Mon épargne fictive</h2>
 <p>Épargne : <b id="savingPageValue">0 €</b></p>
 <form id="savingForm">
-<div class="field"><label>Ajouter à l'épargne (€)</label><input id="savingAmount" type="number" min="0.01" step="0.01" required></div>
+<div class="field"><label>Ajouter à l'épargne fictive (€)</label><input id="savingAmount" type="number" min="0.01" step="0.01" required></div>
 <button class="btn">Ajouter à l’épargne</button>
 </form>
 </section>
@@ -231,14 +231,14 @@ footer{text-align:center;color:var(--muted);font-size:12px;padding:25px}
 <div class="field"><label>Type de crédit</label><select id="loanType"><option>Crédit personnel</option><option>Crédit auto</option><option>Crédit immobilier</option></select></div>
 <div class="field"><label>Montant souhaité (€)</label><input id="loanAmount" type="number" min="100" max="500000" required></div>
 <div class="field"><label>Durée souhaitée (mois)</label><input id="loanDuration" type="number" min="1" max="360" required></div>
-<button class="btn">Envoyer la demande fictive</button>
+<button class="btn">Enregistrer la demande fictive</button>
 </form>
 <div id="loanResult"></div>
 </section>
 </div>
 
 <div id="page-history" class="hidden">
-<section class="panel"><h2>Historique des transactions</h2><div id="allTx"></div></section>
+<section class="panel"><h2>Historique des transactions fictives</h2><div id="allTx"></div></section>
 </div>
 
 <div id="page-profile" class="hidden">
@@ -255,11 +255,11 @@ footer{text-align:center;color:var(--muted);font-size:12px;padding:25px}
 
 <div id="page-support" class="hidden">
 <section class="panel">
-<h2>Assistance client</h2>
+<h2>Assistance de démonstration</h2>
 <form id="supportForm">
 <div class="field"><label>Objet</label><input id="supportSubject" required></div>
 <div class="field"><label>Votre message</label><textarea id="supportMessage" rows="4" required></textarea></div>
-<button class="btn">Envoyer le message (démo)</button>
+<button class="btn">Enregistrer le message (démo)</button>
 </form>
 </section>
 </div>
@@ -282,7 +282,7 @@ footer{text-align:center;color:var(--muted);font-size:12px;padding:25px}
 </div>
 </main>
 
-<footer>© Crédit Agricole – Démonstration non officielle. Aucun service bancaire réel n'est fourni.</footer>
+<footer>© Démonstration non officielle. Aucun service bancaire réel n'est fourni.</footer>
 <div id="toast" class="toast hidden" role="status"></div>
 
 <script>
@@ -350,7 +350,7 @@ function showRegister(){
 $('loginForm').classList.add('hidden');
 $('registerForm').classList.remove('hidden');
 $('authTitle').textContent='Créer votre espace';
-$('authSubtitle').textContent='Ouvrez un compte de démonstration Crédit Agricole.';
+$('authSubtitle').textContent='Ouvrez un compte de démonstration.';
 $('authSwitch').innerHTML='Déjà client ? <button type="button" class="link" onclick="showLogin()">Se connecter</button>';
 }
 
@@ -419,7 +419,7 @@ return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','
 
 function txHTML(items){
 if(!items.length)return'<div class="empty">Aucune opération pour le moment.</div>';
-return'<div class="tablewrap"><table><thead><tr><th>Date</th><th>Opération</th><th>Détail</th><th>Montant</th></tr></thead><tbody>'+
+return'<div class="tablewrap"><table><thead><tr><th>Date</th><th>Opération</th><th>Détail</th><th>Montant fictif</th></tr></thead><tbody>'+
 items.slice().reverse().map(t=>{
 const detail=String(t.detail||'').replace(/\s*[–-]\s*Réf\.\s*CA-DEMO-[A-Z0-9]+/i,'');
 const outgoingPending=t.status==='pending'&&/virement/i.test(t.type||'');
@@ -428,9 +428,9 @@ const amount=outgoingPending
 :((Number(t.amount)>=0?'+':'')+money(t.amount));
 return`<tr>
 <td>${new Date(t.date).toLocaleString('fr-FR')}</td>
-<td>${escapeHTML(outgoingPending?'Virement en cours':t.type)}</td>
+<td>${escapeHTML(t.type)}</td>
 <td>${escapeHTML(detail)}</td>
-<td><strong class="${outgoingPending||Number(t.amount)<0?'negative':'positive'}">${amount}</strong></td>
+<td><strong class="${Number(t.amount)<0?'negative':'positive'}">${amount}</strong></td>
 </tr>`;
 }).join('')+'</tbody></table></div>';
 }
@@ -448,9 +448,9 @@ current=u;
 $('authView').classList.add('hidden');
 $('appView').classList.remove('hidden');
 $('headerLogout').classList.remove('hidden');
-$('welcomeName').textContent='Bonjour Mr Éric Memphis';
+$('welcomeName').textContent='Bonjour '+current.name;
 $('balanceValue').textContent=money(current.balance);
-$('accountNumber').textContent='Compte Crédit Agricole';
+$('accountNumber').textContent='Compte de démonstration';
 $('txCount').textContent=myTx().length;
 $('savingValue').textContent=money(current.savings);
 $('savingPageValue').textContent=money(current.savings);
@@ -462,7 +462,7 @@ $('adminNav').classList.toggle('hidden',current.role!=='admin');
 go('home');
 }
 
-/* VIREMENT SORTANT : opération fictive locale. */
+/* VIREMENT SORTANT : simulation locale avec débit du solde fictif. */
 $('transferForm').onsubmit=e=>{
 e.preventDefault();
 if(!current){toast('Veuillez vous reconnecter.');return;}
@@ -488,30 +488,33 @@ return;
 }
 
 const date=new Date().toISOString();
+
+/* Le virement sortant débite le solde fictif. */
 sender.balance=Number(sender.balance||0)-amount;
+
 db.transactions.push({
 id:id(),
 userId:sender.id,
 type:'Virement sortant simulé',
-detail:name+' – IBAN : '+iban+' – BIC : '+bic+' – '+reason,
+detail:name+' – IBAN de démonstration : '+iban+' – BIC : '+bic+' – '+reason,
 amount:-amount,
 requestedAmount:amount,
 date,
-status:'pending',
+status:'simulation',
 simulation:true
 });
 
 db.emails.push({
 id:id(),
-to:'IBAN : '+iban+' / BIC : '+bic,
+to:'Coordonnées de démonstration : '+iban+' / '+bic,
 name,
 from:sender.name,
 amount,
 reason,
-ref:'CA-DEMO-'+id(),
+ref:'DEMO-'+id(),
 date,
-kind:'pending_transfer',
-status:'pending',
+kind:'simulation_transfer',
+status:'simulation',
 note:'Simulation locale uniquement. Aucun e-mail envoyé et aucun fonds réel transféré.'
 });
 
@@ -520,10 +523,10 @@ e.target.reset();
 current={id:sender.id};
 render();
 go('transfer');
-toast('Opération fictive enregistrée localement.');
+toast('Débit fictif enregistré dans la démonstration.');
 };
 
-/* VIREMENT ENTRANT : opération fictive locale. */
+/* VIREMENT ENTRANT : simulation locale avec crédit du solde fictif. */
 $('incomingTransferForm').onsubmit=e=>{
 e.preventDefault();
 
@@ -549,10 +552,13 @@ toast('Vérifiez le nom, le motif et le montant.');
 return;
 }
 
+/* Le virement entrant ajoute le montant au solde fictif. */
+account.balance=Number(account.balance||0)+amount;
+
 db.transactions.push({
 id:id(),
 userId:account.id,
-type:'Virement entrant',
+type:'Virement entrant simulé',
 detail:'Expéditeur : '+sender+' – Motif : '+reason,
 amount:amount,
 date:new Date().toISOString(),
@@ -566,7 +572,7 @@ e.target.reset();
 current={id:account.id};
 render();
 go('transfer');
-toast('Opération fictive ajoutée à l’historique.');
+toast('Crédit fictif ajouté au solde de démonstration.');
 };
 
 $('savingForm').onsubmit=e=>{
@@ -581,14 +587,15 @@ return;
 current.balance-=a;
 current.savings=Number(current.savings||0)+a;
 db.transactions.push({
-id:id(),userId:current.id,type:'Versement épargne',
-detail:'Transfert vers épargne',amount:-a,date:new Date().toISOString()
+id:id(),userId:current.id,type:'Versement épargne simulé',
+detail:'Transfert fictif vers épargne',amount:-a,
+date:new Date().toISOString(),simulation:true
 });
-save();
+if(!save())return;
 e.target.reset();
 render();
 go('savings');
-toast('Versement d’épargne enregistré.');
+toast('Versement d’épargne fictif enregistré.');
 };
 
 $('loanForm').onsubmit=e=>{
@@ -604,7 +611,7 @@ db.loans.push({
 id:id(),userId:current.id,type:$('loanType').value,
 amount,duration,date:new Date().toISOString(),status:'À étudier (démo)'
 });
-save();
+if(!save())return;
 $('loanResult').innerHTML='<p class="notice">Votre demande fictive a été enregistrée. Aucune décision de crédit réelle.</p>';
 toast('Demande de crédit démo enregistrée.');
 };
@@ -616,7 +623,7 @@ current=db.users.find(u=>u.id===current.id);
 const name=$('profileName').value.trim();
 if(!name){toast('Saisissez un nom valide.');return;}
 current.name=name;
-save();
+if(!save())return;
 render();
 toast('Profil démo mis à jour.');
 };
@@ -628,12 +635,12 @@ const subject=$('supportSubject').value.trim(),
 message=$('supportMessage').value.trim();
 db.emails.push({
 id:id(),to:current.email,name:current.name,
-from:'Assistance Crédit Agricole',amount:null,
+from:'Assistance de démonstration',amount:null,
 reason:subject+' – '+message,ref:'SUP-'+id(),
 date:new Date().toISOString(),delivered:false,
 kind:'assistance',note:'Message conservé localement ; aucun e-mail envoyé.'
 });
-save();
+if(!save())return;
 e.target.reset();
 toast('Message enregistré localement. Aucun e-mail envoyé.');
 };
@@ -650,8 +657,8 @@ $('adminTx').textContent=db.transactions.length;
 $('adminEmails').textContent=db.emails.length;
 $('emailLog').innerHTML=db.emails.slice().reverse().map(m=>`
 <div class="emailbox">
-<strong>${m.kind==='assistance'?'Message d’assistance':'Demande de virement enregistrée'}</strong>
-<p>Destinataire saisi : ${escapeHTML(m.to||'—')}</p>
+<strong>${m.kind==='assistance'?'Message d’assistance':'Opération de démonstration enregistrée'}</strong>
+<p>Destinataire ou référence saisie : ${escapeHTML(m.to||'—')}</p>
 <p>${escapeHTML(m.name||'')} ${m.amount==null?'':'– '+money(m.amount)} · Réf. ${escapeHTML(m.ref||'—')}</p>
 <p>${new Date(m.date).toLocaleString('fr-FR')} · <span class="tag">ENREGISTRÉ LOCALEMENT</span></p>
 <p>${escapeHTML(m.reason||'')}</p>

@@ -175,25 +175,24 @@ footer{text-align:center;color:var(--muted);font-size:12px;padding:25px}
 </form>
 </section>
 
-<!-- NOUVELLE SECTION : SIMULATION D'UN VIREMENT ENTRANT -->
 <section class="panel">
-<h2>Simuler un virement entrant</h2>
-<p class="muted">Cette fonction sert uniquement à tester l'affichage des opérations fictives dans cette démonstration.</p>
-<div class="notice">SIMULATION UNIQUEMENT : aucune somme réelle n'est reçue et aucune confirmation bancaire n'est générée.</div>
+<h2>Virement entrant</h2>
+<p class="muted">Ajoutez une opération fictive pour tester l'affichage de l'historique.</p>
+<div class="notice">Cette opération est une simulation locale. Aucune somme réelle n'est reçue et aucune confirmation bancaire n'est générée.</div>
 <form id="incomingTransferForm">
 <div class="field">
 <label>Nom de l'expéditeur</label>
 <input id="incomingSender" type="text" maxlength="100" required placeholder="Nom de l'expéditeur">
 </div>
 <div class="field">
-<label>Montant simulé (€)</label>
+<label>Montant (€)</label>
 <input id="incomingAmount" type="number" min="0.01" max="100000" step="0.01" required placeholder="Ex. 100.00">
 </div>
 <div class="field">
 <label>Motif du virement</label>
 <input id="incomingReason" type="text" maxlength="100" required placeholder="Ex. Remboursement">
 </div>
-<button class="btn" type="submit">Ajouter l'opération simulée</button>
+<button class="btn" type="submit">Ajouter l'opération</button>
 </form>
 </section>
 
@@ -524,8 +523,7 @@ go('transfer');
 toast('Opération fictive enregistrée localement.');
 };
 
-/* NOUVEAU : AJOUT D'UNE OPÉRATION ENTRANTE DE SIMULATION.
-   Cette opération est explicitement marquée comme fictive. */
+/* VIREMENT ENTRANT : opération fictive locale. */
 $('incomingTransferForm').onsubmit=e=>{
 e.preventDefault();
 
@@ -551,12 +549,11 @@ toast('Vérifiez le nom, le motif et le montant.');
 return;
 }
 
-/* L'opération reste une simulation locale, identifiée comme telle. */
 db.transactions.push({
 id:id(),
 userId:account.id,
-type:'Virement entrant simulé — DÉMO',
-detail:'Simulation fictive — Expéditeur : '+sender+' — Motif : '+reason,
+type:'Virement entrant',
+detail:'Expéditeur : '+sender+' – Motif : '+reason,
 amount:amount,
 date:new Date().toISOString(),
 status:'simulation',
@@ -569,7 +566,7 @@ e.target.reset();
 current={id:account.id};
 render();
 go('transfer');
-toast('Opération de simulation ajoutée à l’historique.');
+toast('Opération fictive ajoutée à l’historique.');
 };
 
 $('savingForm').onsubmit=e=>{
